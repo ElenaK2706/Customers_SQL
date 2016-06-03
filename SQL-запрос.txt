@@ -1,0 +1,11 @@
+ (SELECT DISTINCT    Customers.Name
+     FROM         Customers 
+     INNER JOIN     Purchases ON Customers.CustomerID = Purchases.CustomerID
+      WHERE     (Purchases.ProductName = 'молоко')
+)
+EXCEPT
+ (SELECT DISTINCT    Customers.Name
+FROM  Customers 
+INNER JOIN     Purchases ON Customers.CustomerID = Purchases.CustomerID
+WHERE     (Purchases.ProductName = 'сметана') AND Purchases.PurchaseDateTime > DATE_ADD(NOW(), INTERVAL -1 MONTH)
+)
